@@ -74,10 +74,10 @@ class ChoroplethMap {
       .attr(
         "transform",
         "translate(" +
-          vis.config.margin.left +
-          "," +
-          vis.config.margin.top +
-          ")"
+        vis.config.margin.left +
+        "," +
+        vis.config.margin.top +
+        ")"
       )
       .attr(
         "width",
@@ -106,16 +106,17 @@ class ChoroplethMap {
       });
 
     vis.counties
-      .on("mousemove", (d, event) => {
+      .on("mousemove", (event, d) => {
         console.log(d);
         console.log(event);
         const value = d.properties.value
           ? `<strong>${d.properties.value}</strong> people<sup>2</sup>`
           : "No data available";
+        console.log(value);
         d3
           .select("#tooltipMap").html(`
                         <div class="tooltip-title">${d.properties.County}</div>
-                        <div>${value}</div>
+                        <div>${d.properties.value}</div>
                       `);
       })
       .on("mouseleave", () => {

@@ -7,7 +7,7 @@ class Barchart {
       parentElement: _config.parentElement,
       containerWidth: _config.containerWidth || 350,
       containerHeight: _config.containerHeight || 250,
-      margin: _config.margin || {top: 10, right: 5, bottom: 25, left: 70},
+      margin: _config.margin || { top: 10, right: 5, bottom: 25, left: 70 },
       reverseOrder: _config.reverseOrder || false,
       tooltipPadding: _config.tooltipPadding || 15
     }
@@ -28,34 +28,34 @@ class Barchart {
       .range([vis.height, 0]);
 
     vis.xScale = d3.scaleBand()
-        .range([0, vis.width])
-        .paddingInner(0);
+      .range([0, vis.width])
+      .paddingInner(0);
 
     vis.xAxis = d3.axisBottom(vis.xScale)
-        .tickSizeOuter(0);
+      .tickSizeOuter(0);
 
     vis.yAxis = d3.axisLeft(vis.yScale)
-        .ticks(6)
-        .tickSizeOuter(0)
-        .tickFormat(d3.formatPrefix('.0s', 1)); // Format y-axis ticks as millions
+      .ticks(6)
+      .tickSizeOuter(0)
+      .tickFormat(d3.formatPrefix('.0s', 1)); // Format y-axis ticks as millions
 
     // Define size of SVG drawing area
     vis.svg = d3.select(vis.config.parentElement)
-        .attr('width', vis.config.containerWidth)
-        .attr('height', vis.config.containerHeight);
+      .attr('width', vis.config.containerWidth)
+      .attr('height', vis.config.containerHeight);
 
     // SVG Group containing the actual chart; D3 margin convention
     vis.chart = vis.svg.append('g')
-        .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
+      .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
     // Append empty x-axis group and move it to the bottom of the chart
     vis.xAxisG = vis.chart.append('g')
-        .attr('class', 'axis x-axis')
-        .attr('transform', `translate(0,${vis.height})`);
-    
+      .attr('class', 'axis x-axis')
+      .attr('transform', `translate(0,${vis.height})`);
+
     // Append y-axis group 
     vis.yAxisG = vis.chart.append('g')
-        .attr('class', 'axis y-axis');
+      .attr('class', 'axis y-axis');
   }
 
   /**
@@ -88,18 +88,19 @@ class Barchart {
 
     // Add rectangles
     let bars = vis.chart.selectAll('.bar')
-        .data(vis.data, vis.xValue)
+      .data(vis.data, vis.xValue)
       .join('rect');
-    
+
     bars.style('opacity', 0.5)
       .transition().duration(1000)
-        .style('opacity', 1)
-        .attr('class', 'bar')
-        .attr('x', d => vis.xScale(vis.xValue(d)))
-        .attr('width', vis.xScale.bandwidth())
-        .attr('height', d => vis.height - vis.yScale(vis.yValue(d)))
-        .attr('y', d => vis.yScale(vis.yValue(d)))
-    
+      .style('opacity', 1)
+      .attr('class', 'bar')
+      .attr('x', d => vis.xScale(vis.xValue(d)))
+      .attr('width', vis.xScale.bandwidth())
+      .attr('height', d => vis.height - vis.yScale(vis.yValue(d)))
+      .attr('y', d => vis.yScale(vis.yValue(d)))
+      .attr('fill', 'green')
+
     // Tooltip event listeners
     bars
       .on('mouseover', (event, d) => {
@@ -117,14 +118,15 @@ class Barchart {
           .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')
           .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
       });
-        // .on('mouseleave', () => {
-        //   d3.select('#tooltipBar').style('opacity', 0);
-        // });
+    // .on('mouseleave', () => {
+    //   d3.select('#tooltipBar').style('opacity', 0);
+    // });
+
 
     // Update axes
     vis.xAxisG
-        .transition().duration(1000)
-        .call(vis.xAxis);
+      .transition().duration(1000)
+      .call(vis.xAxis);
 
     vis.yAxisG.call(vis.yAxis);
   }
