@@ -1,3 +1,7 @@
+body {
+  background-color: gray;
+}
+
 .title {
   display: flex;
   flex-direction: column;
