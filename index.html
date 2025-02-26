@@ -1,143 +1,120 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>D3 Choropleth Map</title>
-    <link rel="icon" href="data:;base64,iVBORwOKGO=" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="title">
-      <h1>US Counties and Their Miscellaneous Data</h1>
-      <h2>Justin Tran</h2>
-      <h3>
-        Data gathered from the
-        <a
-          href="https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america"
-          >U.S. Department of Agriculture</a
-        >
-      </h3>
-    </div>
 
-    <div class="barcharts">
-      <div class="charts">
-        <div class="chart1" id="chart1">
+<head>
+  <title>D3 Choropleth Map</title>
+  <link rel="icon" href="data:;base64,iVBORwOKGO=" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="title">
+    <h1>US Counties and Their Miscellaneous Data</h1>
+    <h2>Justin Tran</h2>
+    <h3>
+      Data gathered from the
+      <a href="https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america">U.S. Department of
+        Agriculture</a>
+    </h3>
+  </div>
+
+  <div class="barcharts">
+    <div class="charts">
+      <div class="chart1" id="chart1">
+        <div class="visual">
           <svg id="barChart1"></svg>
-          <div id="footer">
-            <div class="footer-col">
-              <button type="button" class="btn btn-link btn-sm" id="sorting">
-                <img
-                  src="images/sort-down.svg"
-                  alt=""
-                  width="14"
-                  height="14"
-                  title="Sort"
-                />
-                Reverse order
-              </button>
-            </div>
-            <div class="footer-col text-right">
-              <a
-                href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm"
-                class="btn btn-link btn-sm"
-                >Source: statcan.gc.ca</a
-              >
-            </div>
-          </div>
         </div>
-        <div class="chartMiddle">
-          <div id="tooltipBar"></div>
-          <h4>Hover over the charts to view specific county data!</h4>
-        </div>
-        <div class="chart2" id="chart2">
-          <svg id="barChart2"></svg>
+        <div id="footer">
           <div class="footer-col">
             <button type="button" class="btn btn-link btn-sm" id="sorting">
-              <img
-                src="images/sort-down.svg"
-                alt=""
-                width="14"
-                height="14"
-                title="Sort"
-              />
+              <img src="images/sort-down.svg" alt="" width="14" height="14" title="Sort" />
               Reverse order
             </button>
           </div>
           <div class="footer-col text-right">
-            <a
-              href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm"
-              class="btn btn-link btn-sm"
-              >Source: statcan.gc.ca</a
-            >
+            <a href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm"
+              class="btn btn-link btn-sm">Source: statcan.gc.ca</a>
           </div>
+        </div>
+        <div class="barTitle" id="barTitle"></div>
+      </div>
+      <div class="chartMiddle">
+        <div id="tooltipBar"></div>
+        <h4>Hover over the charts to view specific county data!</h4>
+      </div>
+      <div class="chart2" id="chart2">
+        <div class="visual">
+          <svg id="barChart2"></svg>
+        </div>
+        <div id="footer">
+
+          <div class="footer-col">
+            <button type="button" class="btn btn-link btn-sm" id="sorting">
+              <img src="images/sort-down.svg" alt="" width="14" height="14" title="Sort" />
+              Reverse order
+            </button>
+          </div>
+          <div class="footer-col text-right">
+            <a href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm"
+              class="btn btn-link btn-sm">Source: statcan.gc.ca</a>
+          </div>
+        </div>
+        <div class="barTitle2" id="barTitle2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="selectors">
+    <select id="leftSelector" onchange="updateCharts1()">
+      <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
+      <option value="Age65AndOlderNum2020" selected="selected">Total Population Aged 65 and Older 2020</option>
+      <option value="TotalPopEst2015">Total Population 2015</option>
+      <option value="TotalPop2020">Total Population 2020</option>
+    </select>
+    <h4><----- Select data sets to compare! -----></h3>
+        <select id="rightSelector" onchange="updateCharts2()">
+          <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
+          <option value="Age65AndOlderNum2020">Total Population Aged 65 and Older 2020</option>
+          <option value="TotalPopEst2015">Total Population 2015</option>
+          <option value="TotalPop2020" selected="selected">Total Population 2020</option>
+        </select>
+  </div>
+
+  <div class="maps">
+    <div class="mapRow">
+      <div class="map1">
+        <div id="viz" class="viz"></div>
+      </div>
+      <div class="map2">
+        <div id="viz2" class="viz2">
         </div>
       </div>
     </div>
+    <div id="tooltipMap"></div>
+  </div>
 
-    <div class="selectors">
-      <select id="leftSelector" onchange="updateCharts1()">
-        <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
-        <option value="Age65AndOlderNum2020" selected="selected">Total Population Aged 65 and Older 2020</option>
-        <option value="TotalPopEst2015">Total Population 2015</option>
-        <option value="TotalPop2020">Total Population 2020</option>
-      </select>
-      <h4><----- Select data sets to compare! -----></h3>
-      <select id="rightSelector" onchange="updateCharts2()">
-        <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
-        <option value="Age65AndOlderNum2020">Total Population Aged 65 and Older 2020</option>
-        <option value="TotalPopEst2015">Total Population 2015</option>
-        <option value="TotalPop2020" selected="selected">Total Population 2020</option>
-      </select>
-    </div>
+  <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5">
+        <image
+          xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg=="
+          x="0" y="0" width="5" height="5"></image>
+      </pattern>
+    </defs>
+  </svg>
 
-    <div class="maps">
-      <div class="mapRow">
-        <div class="age65map">
-          <div id="viz" class="viz"></div>
-        </div>
-        <div class="totalPopulation2020">
-          <div id="viz2" class="viz2">
-          </div>
-        </div>
-      </div>
-      <div id="tooltipMap"></div>
-    </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+  <script src="js/topojson.v3.js"></script>
 
-    <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
-      <defs>
-        <pattern
-          id="lightstripe"
-          patternUnits="userSpaceOnUse"
-          width="5"
-          height="5"
-        >
-          <image
-            xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg=="
-            x="0"
-            y="0"
-            width="5"
-            height="5"
-          ></image>
-        </pattern>
-      </defs>
-    </svg>
+  <script src="js/d3.v6.min.js"></script>
+  <script src="js/topojson.v3.js"></script>
+  <script src="js/choroplethMap.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/barchart.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+</body>
 
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"
-    ></script>
-    <script src="js/topojson.v3.js"></script>
-
-    <script src="js/d3.v6.min.js"></script>
-    <script src="js/topojson.v3.js"></script>
-    <script src="js/choroplethMap.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/barchart.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-  </body>
 </html>

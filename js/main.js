@@ -69,7 +69,7 @@ Promise.all([
     );
     const title = document.createElement("h4");
     const text = document.createTextNode(
-      document.getElementById("leftSelector").value
+      document.getElementById("rightSelector").value
     );
     title.appendChild(text);
     const ele = document.getElementById("viz2");
@@ -78,69 +78,65 @@ Promise.all([
   .catch((error) => console.error(error));
 
 let barchart;
-  d3.csv("data/" + document.getElementById("leftSelector").value + ".csv")
-    .then((data) => {
-      data.forEach((d) => {
-        if (d.FIPS !== 0) {
-          d.Value = +d.Value;
-        }
-      });
+d3.csv("data/" + document.getElementById("leftSelector").value + ".csv")
+  .then((data) => {
+    data.forEach((d) => {
+      if (d.FIPS !== 0) {
+        d.Value = +d.Value;
+      }
+    });
 
-      // Sort data by population
-      data.sort((a, b) => b.Value - a.Value);
+    // Sort data by population
+    data.sort((a, b) => b.Value - a.Value);
 
-      // Initialize chart and then show it
-      barchart = new Barchart({ parentElement: "#barChart1" }, data);
-      barchart.updateVis();
-      const title = document.createElement("h4");
-      const text = document.createTextNode(
-        document.getElementById("leftSelector").value
-      );
-      title.appendChild(text);
-      const ele = document.getElementById("chart1");
-      ele.appendChild(title);
-    })
-    .catch((error) => console.error(error));
+    // Initialize chart and then show it
+    barchart = new Barchart({ parentElement: "#barChart1" }, data);
+    barchart.updateVis();
+    const title = document.createElement("h4");
+    const text = document.createTextNode(
+      document.getElementById("leftSelector").value
+    );
+    title.appendChild(text);
+    const ele = document.getElementById("barTitle");
+    ele.appendChild(title);
+  })
+  .catch((error) => console.error(error));
 
 let barchart2;
-  d3.csv("data/" + document.getElementById("rightSelector").value + ".csv")
-    .then((data) => {
-      data.forEach((d) => {
-        // Iterate through all rows in csv to gather data
-        // for (let i = 0; i < data.length; i++) {
-        //   if (
-        //     d.FIPS !== 0 &&
-        //     data[i].Attribute == "Age65AndOlderNum2020"
-        //   ) {
-        //     d.region = d.County;
-        //   }
-        // }
-        if (d.FIPS !== 0) {
-          d.Value = +d.Value;
-        }
-        else {
+d3.csv("data/" + document.getElementById("rightSelector").value + ".csv")
+  .then((data) => {
+    data.forEach((d) => {
+      if (d.FIPS !== 0) {
+        d.Value = +d.Value;
+      }
+      else {
 
-        }
-      });
-      const title = document.createElement("h4");
-      const text = document.createTextNode(
-        document.getElementById("leftSelector").value
-      );
-      title.appendChild(text);
-      const ele = document.getElementById("chart2");
-      ele.appendChild(title);
+      }
+    });
+    const title = document.createElement("h4");
+    const text = document.createTextNode(
+      document.getElementById("rightSelector").value
+    );
+    title.appendChild(text);
+    const ele = document.getElementById("barTitle2");
+    ele.appendChild(title);
 
-      // Sort data by population
-      data.sort((a, b) => b.Value - a.Value);
+    // Sort data by population
+    data.sort((a, b) => b.Value - a.Value);
 
-      // Initialize chart and then show it
-      barchart = new Barchart({ parentElement: "#barChart2" }, data);
-      barchart.updateVis();
-    })
-    .catch((error) => console.error(error));
-    
+    // Initialize chart and then show it
+    barchart = new Barchart({ parentElement: "#barChart2" }, data);
+    barchart.updateVis();
+  })
+  .catch((error) => console.error(error));
+
 function updateCharts1() {
   let element = document.getElementById("barChart1");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+
+  element = document.getElementById("barTitle")
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
@@ -159,6 +155,13 @@ function updateCharts1() {
       // Initialize chart and then show it
       barchart = new Barchart({ parentElement: "#barChart1" }, data);
       barchart.updateVis();
+      const title = document.createElement("h4");
+      const text = document.createTextNode(
+        document.getElementById("leftSelector").value
+      );
+      title.appendChild(text);
+      const ele = document.getElementById("barTitle");
+      ele.appendChild(title);
     })
     .catch((error) => console.error(error));
 
@@ -192,12 +195,25 @@ function updateCharts1() {
         },
         geoData
       );
+
+      const title = document.createElement("h4");
+      const text = document.createTextNode(
+        document.getElementById("rightSelector").value
+      );
+      title.appendChild(text);
+      const ele = document.getElementById("viz");
+      ele.appendChild(title);
     })
     .catch((error) => console.error(error));
 }
 
 function updateCharts2() {
   let element = document.getElementById("barChart2");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+
+  element = document.getElementById("barTitle2")
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
@@ -216,6 +232,13 @@ function updateCharts2() {
       // Initialize chart and then show it
       barchart = new Barchart({ parentElement: "#barChart2" }, data);
       barchart.updateVis();
+      const title = document.createElement("h4");
+      const text = document.createTextNode(
+        document.getElementById("rightSelector").value
+      );
+      title.appendChild(text);
+      const ele = document.getElementById("barTitle2");
+      ele.appendChild(title);
     })
     .catch((error) => console.error(error));
 
@@ -249,6 +272,13 @@ function updateCharts2() {
         },
         geoData
       );
+      const title = document.createElement("h4");
+      const text = document.createTextNode(
+        document.getElementById("rightSelector").value
+      );
+      title.appendChild(text);
+      const ele = document.getElementById("viz2");
+      ele.appendChild(title);
     })
     .catch((error) => console.error(error));
 }
