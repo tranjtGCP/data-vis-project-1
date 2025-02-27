@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>D3 Choropleth Map</title>
+  <title>Data Visualization Project 1</title>
   <link rel="icon" href="data:;base64,iVBORwOKGO=" />
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -12,7 +12,7 @@
 <body>
   <div class="title">
     <h1>US Counties and Their Miscellaneous Data</h1>
-    <h2>Justin Tran</h2>
+    <h2>By Justin Tran</h2>
     <h3>
       Data gathered from the
       <a href="https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america">U.S. Department of
@@ -20,45 +20,36 @@
     </h3>
   </div>
 
+  <!-- Barcharts -->
   <div class="barcharts">
     <div class="charts">
       <div class="chart1" id="chart1">
         <div class="visual">
+          <h5>Population</h5>
           <svg id="barChart1"></svg>
         </div>
+        <h5>County</h5>
         <div id="footer">
           <div class="footer-col">
-            <button type="button" class="btn btn-link btn-sm" id="sorting">
-              <img src="images/sort-down.svg" alt="" width="14" height="14" title="Sort" />
-              Reverse order
-            </button>
-          </div>
-          <div class="footer-col text-right">
-            <a href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm"
-              class="btn btn-link btn-sm">Source: statcan.gc.ca</a>
           </div>
         </div>
         <div class="barTitle" id="barTitle"></div>
       </div>
       <div class="chartMiddle">
         <div id="tooltipBar"></div>
-        <h4>Hover over the charts to view specific county data!</h4>
+        <h4>Hover over the bar charts to view specific county data!</h4>
+        <h4>X-axis and its labels have been omitted due to the</h4>
+        <h4>number of counties that need to be displayed</h4>
       </div>
       <div class="chart2" id="chart2">
         <div class="visual">
+          <h5>Population</h5>
           <svg id="barChart2"></svg>
         </div>
+        <h5>County</h5>
         <div id="footer">
 
           <div class="footer-col">
-            <button type="button" class="btn btn-link btn-sm" id="sorting">
-              <img src="images/sort-down.svg" alt="" width="14" height="14" title="Sort" />
-              Reverse order
-            </button>
-          </div>
-          <div class="footer-col text-right">
-            <a href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/Table.cfm"
-              class="btn btn-link btn-sm">Source: statcan.gc.ca</a>
           </div>
         </div>
         <div class="barTitle2" id="barTitle2"></div>
@@ -66,6 +57,7 @@
     </div>
   </div>
 
+  <!-- Dropdowns to select different data sets -->
   <div class="selectors">
     <select id="leftSelector" onchange="updateCharts1()">
       <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
@@ -74,25 +66,26 @@
       <option value="TotalPop2020">Total Population 2020</option>
     </select>
     <h4><----- Select data sets to compare! -----></h3>
-        <select id="rightSelector" onchange="updateCharts2()">
-          <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
-          <option value="Age65AndOlderNum2020">Total Population Aged 65 and Older 2020</option>
-          <option value="TotalPopEst2015">Total Population 2015</option>
-          <option value="TotalPop2020" selected="selected">Total Population 2020</option>
-        </select>
-  </div>
-
+      <select id="rightSelector" onchange="updateCharts2()">
+        <option value="Under18Num2020">Total Population Aged 18 and Under 2020</option>
+        <option value="Age65AndOlderNum2020">Total Population Aged 65 and Older 2020</option>
+        <option value="TotalPopEst2015">Total Population 2015</option>
+        <option value="TotalPop2020" selected="selected">Total Population 2020</option>
+      </select>
+    </div>
+    
+  <!-- Chloropleth Maps -->
   <div class="maps">
     <div class="mapRow">
       <div class="map1">
         <div id="viz" class="viz"></div>
       </div>
+      <div id="tooltipMap"></div>
       <div class="map2">
         <div id="viz2" class="viz2">
         </div>
       </div>
     </div>
-    <div id="tooltipMap"></div>
   </div>
 
   <svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -107,7 +100,6 @@
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
   <script src="js/topojson.v3.js"></script>
-
   <script src="js/d3.v6.min.js"></script>
   <script src="js/topojson.v3.js"></script>
   <script src="js/choroplethMap.js"></script>
