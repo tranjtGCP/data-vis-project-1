@@ -88,9 +88,19 @@ body {
   .mapRow {
     display: flex;
     height: 100%;
-    width: 100%;
     justify-content: space-evenly;
     padding: 1rem;
+    gap: 4rem;
+  }
+
+  .mapMiddle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    h4 {
+      margin-top: 2rem;
+    }
   }
 
   h4 {
