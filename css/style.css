@@ -98,6 +98,7 @@ body {
     flex-direction: column;
     align-items: center;
     
+
     h4 {
       margin-top: 2rem;
     }
@@ -212,5 +213,8 @@ body {
     flex-direction: column;
     height: 100%;
     justify-content: center;
+    h4 {
+      margin-top: 0px;
+    }
   }
 }
